@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    Layout = null;
 }
 
 
@@ -8,9 +7,23 @@
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/Boostrap.styles.css" asp-append-version="true" />
 
-<div class="conrainer bg-black">
-    <div class="col-md-6 mb-3">
 
+
+<!-- Modal -->
+<div class="modal fade" id="modalSesion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Iniciar Sesion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Sesion iniciada</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -21,14 +21,14 @@ namespace GEDSoftware.API.Controllers
             return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
         }
 
-        // GET: api/Proyectos
+        // GET: api/Desarrolladores
         [HttpGet]
         public IEnumerable<Desarrollador> Get()
         {
             using var connection = GetConnection();
             var sql = @"SELECT id, nombre, correo, telefono 
-                      FROM dbo.desarrolladores";
-            return connection.Query<Desarrollador>(sql); // Updated to return IEnumerable<Proyecto>
+                        FROM dbo.desarrolladores";
+            return connection.Query<Desarrollador>(sql);
         }
 
         // GET: api/Desarrolladores/5
@@ -57,12 +57,12 @@ namespace GEDSoftware.API.Controllers
             return BadRequest();
         }
 
-        // PUT: api/Proyectos/5
+        // PUT: api/Desarrolladores/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Desarrollador desarrollador)
         {
             using var connection = GetConnection();
-            var sql = @"UPDATE dbo.proyectos 
+            var sql = @"UPDATE dbo.desarrolladores 
                         SET nombre = @Nombre, correo = @Correo, telefono = @Telefono
                         WHERE id = @Id";
             var affectedRows = connection.Execute(sql, new

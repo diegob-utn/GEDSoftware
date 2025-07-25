@@ -15,5 +15,6 @@ namespace GEDSoftware.MVC.Data
         public DbSet<Tarea> Tareas { get; set; }
         public DbSet<Proyecto> Proyectos { get; set; }
         public DbSet<Desarrollador> Desarrolladores { get; set; }
+
     }
 }

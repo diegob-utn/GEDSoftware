@@ -9,48 +9,46 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GEDSoftware.MVC.Data.Migrations
+namespace GEDSoftware.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250725144500_v3")]
-    partial class v3
+    [Migration("20250725180301_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.16")
+                .HasAnnotation("ProductVersion", "8.0.17")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GEDSoftware.Models.Models.ApplicationUser", b =>
+            modelBuilder.Entity("DesarrolladorProyecto", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
+                    b.Property<int>("ProyectosId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("desarrolladoresId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.HasKey("ProyectosId", "desarrolladoresId");
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                    b.HasIndex("desarrolladoresId");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                    b.ToTable("DesarrolladorProyecto");
+                });
 
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+            modelBuilder.Entity("GEDSoftware.Models.Models.Desarrollador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("Nick")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Correo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -58,44 +56,13 @@ namespace GEDSoftware.MVC.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Desarrolladores");
                 });
 
             modelBuilder.Entity("GEDSoftware.Models.Models.Proyecto", b =>
@@ -106,36 +73,32 @@ namespace GEDSoftware.MVC.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("desarrolladorId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Descripcion")
+                    b.Property<string>("descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaLimite")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombre")
+                    b.Property<string>("estado")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Prioridad")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("fechacreacion")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("UsuarioAsignadoId")
+                    b.Property<DateTime>("fechalimite")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("prioridad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Proyectos");
                 });
@@ -148,41 +111,39 @@ namespace GEDSoftware.MVC.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("desarrolladorId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Descripcion")
+                    b.Property<string>("descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
+                    b.Property<string>("estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("fechacreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaLimite")
+                    b.Property<DateTime>("fechalimite")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Prioridad")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProyectoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsuarioAsignadoId")
+                    b.Property<string>("prioridad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("proyectoId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("desarrolladorId");
 
-                    b.HasIndex("ProyectoId");
+                    b.HasIndex("proyectoId");
 
                     b.ToTable("Tareas");
                 });
@@ -239,6 +200,71 @@ namespace GEDSoftware.MVC.Data.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -267,12 +293,10 @@ namespace GEDSoftware.MVC.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -309,12 +333,10 @@ namespace GEDSoftware.MVC.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -324,24 +346,38 @@ namespace GEDSoftware.MVC.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GEDSoftware.Models.Models.Proyecto", b =>
+            modelBuilder.Entity("DesarrolladorProyecto", b =>
                 {
-                    b.HasOne("GEDSoftware.Models.Models.ApplicationUser", null)
-                        .WithMany("proyectosAsignados")
-                        .HasForeignKey("ApplicationUserId");
+                    b.HasOne("GEDSoftware.Models.Models.Proyecto", null)
+                        .WithMany()
+                        .HasForeignKey("ProyectosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GEDSoftware.Models.Models.Desarrollador", null)
+                        .WithMany()
+                        .HasForeignKey("desarrolladoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GEDSoftware.Models.Models.Tarea", b =>
                 {
-                    b.HasOne("GEDSoftware.Models.Models.ApplicationUser", null)
-                        .WithMany("tareasAsignadas")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("GEDSoftware.Models.Models.Proyecto", "Proyecto")
+                    b.HasOne("GEDSoftware.Models.Models.Desarrollador", "desarrollador")
                         .WithMany("Tareas")
-                        .HasForeignKey("ProyectoId");
+                        .HasForeignKey("desarrolladorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Proyecto");
+                    b.HasOne("GEDSoftware.Models.Models.Proyecto", "proyecto")
+                        .WithMany("tareas")
+                        .HasForeignKey("proyectoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("desarrollador");
+
+                    b.Navigation("proyecto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -355,7 +391,7 @@ namespace GEDSoftware.MVC.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("GEDSoftware.Models.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -364,7 +400,7 @@ namespace GEDSoftware.MVC.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("GEDSoftware.Models.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -379,7 +415,7 @@ namespace GEDSoftware.MVC.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GEDSoftware.Models.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -388,23 +424,21 @@ namespace GEDSoftware.MVC.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("GEDSoftware.Models.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GEDSoftware.Models.Models.ApplicationUser", b =>
+            modelBuilder.Entity("GEDSoftware.Models.Models.Desarrollador", b =>
                 {
-                    b.Navigation("proyectosAsignados");
-
-                    b.Navigation("tareasAsignadas");
+                    b.Navigation("Tareas");
                 });
 
             modelBuilder.Entity("GEDSoftware.Models.Models.Proyecto", b =>
                 {
-                    b.Navigation("Tareas");
+                    b.Navigation("tareas");
                 });
 #pragma warning restore 612, 618
         }

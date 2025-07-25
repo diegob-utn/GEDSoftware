@@ -26,7 +26,7 @@ namespace GEDSoftware.API.Controllers
         public IEnumerable<Tarea> Get()
         {
             using var connection = GetConnection();
-            var sql = @"SELECT id, nombre, descripcion, fechacreacion, fechalimite, prioridad, estado, desarrollador_id, proyecto_id
+            var sql = @"SELECT Id, Nombre, Descripcion, FechaCreacion, FechaLimite, Prioridad, Estado, DesarrolladorId, ProyectoId
                         FROM dbo.tareas";
             return connection.Query<Tarea>(sql);
         }
@@ -36,8 +36,8 @@ namespace GEDSoftware.API.Controllers
         public ActionResult<Tarea> Get(int id)
         {
             using var connection = GetConnection();
-            var sql = @"SELECT id, nombre, descripcion, fechacreacion, fechalimite, prioridad, estado, desarrollador_id, proyecto_id
-                        FROM dbo.tareas WHERE id = @Id";
+            var sql = @"SELECT Id, Nombre, Descripcion, FechaCreacion, FechaLimite, Prioridad, Estado, DesarrolladorId, ProyectoId
+                        FROM dbo.tareas WHERE Id = @Id";
             var tarea = connection.QuerySingleOrDefault<Tarea>(sql, new { Id = id });
             if(tarea == null)
                 return NotFound();
@@ -49,7 +49,7 @@ namespace GEDSoftware.API.Controllers
         public IActionResult Post([FromBody] Tarea tarea)
         {
             using var connection = GetConnection();
-            var sql = @"INSERT INTO dbo.tareas (nombre, descripcion, fechacreacion, fechalimite, prioridad, estado, desarrollador_id, proyecto_id) 
+            var sql = @"INSERT INTO dbo.tareas (Nombre, Descripcion, FechaCreacion, FechaLimite, Prioridad, Estado, DesarrolladorId, ProyectoId) 
                         VALUES (@Nombre, @Descripcion, @FechaCreacion, @FechaLimite, @Prioridad, @Estado, @DesarrolladorId, @ProyectoId)";
             var affectedRows = connection.Execute(sql, tarea);
             if(affectedRows > 0)
@@ -63,20 +63,20 @@ namespace GEDSoftware.API.Controllers
         {
             using var connection = GetConnection();
             var sql = @"UPDATE dbo.tareas 
-                        SET nombre = @Nombre, descripcion = @Descripcion, desarrollador_id = @DesarrolladorId,
-                            fechacreacion = @FechaCreacion, fechalimite = @FechaLimite, prioridad = @Prioridad, estado = @Estado, 
-                            proyecto_id = @ProyectoId   
-                        WHERE id = @Id";
+                        SET Nombre = @Nombre, Descripcion = @Descripcion, FechaCreacion = @FechaCreacion, 
+                            FechaLimite = @FechaLimite, Prioridad = @Prioridad, Estado = @Estado, 
+                            DesarrolladorId = @DesarrolladorId, ProyectoId = @ProyectoId
+                        WHERE Id = @Id";
             var affectedRows = connection.Execute(sql, new
             {
-                tarea.nombre,
-                tarea.descripcion,
-                tarea.fechacreacion,
-                tarea.fechalimite,
-                tarea.prioridad,
-                tarea.estado,
-                tarea.desarrolladorId,
-                tarea.proyectoId,
+                tarea.Nombre,
+                tarea.Descripcion,
+                tarea.FechaCreacion,
+                tarea.FechaLimite,
+                tarea.Prioridad,
+                tarea.Estado,
+                tarea.DesarrolladorId,
+                tarea.ProyectoId,
                 Id = id
             });
             if(affectedRows > 0)
@@ -89,7 +89,7 @@ namespace GEDSoftware.API.Controllers
         public IActionResult Delete(int id)
         {
             using var connection = GetConnection();
-            var sql = @"DELETE FROM dbo.tareas WHERE id = @Id";
+            var sql = @"DELETE FROM dbo.tareas WHERE Id = @Id";
             var affectedRows = connection.Execute(sql, new { Id = id });
             if(affectedRows > 0)
                 return Ok();

@@ -26,9 +26,9 @@ namespace GEDSoftware.API.Controllers
         public IEnumerable<Proyecto> Get()
         {
             using var connection = GetConnection();
-            var sql = @"SELECT id, nombre, descripcion, fechacreacion, fechalimite, prioridad, estado, desarrollador_id
+            var sql = @"SELECT Id, Nombre, Descripcion, FechaCreacion, FechaLimite, Prioridad, Estado, DesarrolladorId
                         FROM dbo.proyectos";
-            return connection.Query<Proyecto>(sql); // Updated to return IEnumerable<Proyecto>
+            return connection.Query<Proyecto>(sql);
         }
 
         // GET: api/Proyectos/5
@@ -36,8 +36,8 @@ namespace GEDSoftware.API.Controllers
         public ActionResult<Proyecto> Get(int id)
         {
             using var connection = GetConnection();
-            var sql = @"SELECT id, nombre, descripcion, fechacreacion, fechalimite, prioridad, estado, desarrollador_id
-                        FROM dbo.proyectos WHERE id = @Id";
+            var sql = @"SELECT Id, Nombre, Descripcion, FechaCreacion, FechaLimite, Prioridad, Estado, DesarrolladorId
+                        FROM dbo.proyectos WHERE Id = @Id";
             var proyecto = connection.QuerySingleOrDefault<Proyecto>(sql, new { Id = id });
             if(proyecto == null)
                 return NotFound();
@@ -49,7 +49,7 @@ namespace GEDSoftware.API.Controllers
         public IActionResult Post([FromBody] Proyecto proyecto)
         {
             using var connection = GetConnection();
-            var sql = @"INSERT INTO dbo.proyectos (nombre, descripcion, fechacreacion, fechalimite, prioridad, estado, desarrollador_id) 
+            var sql = @"INSERT INTO dbo.proyectos (Nombre, Descripcion, FechaCreacion, FechaLimite, Prioridad, Estado, DesarrolladorId) 
                         VALUES (@Nombre, @Descripcion, @FechaCreacion, @FechaLimite, @Prioridad, @Estado, @DesarrolladorId)";
             var affectedRows = connection.Execute(sql, proyecto);
             if(affectedRows > 0)
@@ -63,19 +63,20 @@ namespace GEDSoftware.API.Controllers
         {
             using var connection = GetConnection();
             var sql = @"UPDATE dbo.proyectos 
-                        SET nombre = @Nombre, descripcion = @Descripcion, 
-                            fechacreacion = @FechaCreacion, fechalimite = @FechaLimite, prioridad = @Prioridad, estado = @Estado, 
-                              desarrollador_id = @DesarrolladorId 
-                        WHERE id = @Id";
+                        SET Nombre = @Nombre, Descripcion = @Descripcion, 
+                            FechaCreacion = @FechaCreacion, FechaLimite = @FechaLimite, Prioridad = @Prioridad, Estado = @Estado, 
+                            DesarrolladorId = @DesarrolladorId 
+                        WHERE Id = @Id";
             var affectedRows = connection.Execute(sql, new
-            { 
-                proyecto.nombre,
-                proyecto.descripcion,
-                proyecto.fechacreacion,
-                proyecto.fechalimite,
-                proyecto.prioridad,
-                proyecto.estado,
-                proyecto.desarrolladorId,
+            {
+                proyecto.Nombre,
+                proyecto.Descripcion,
+                proyecto.FechaCreacion,
+                proyecto.FechaLimite,
+                proyecto.Prioridad,
+                proyecto.Estado,
+                proyecto.DesarrolladorId,
+                Id = id
             });
             if(affectedRows > 0)
                 return Ok();
@@ -87,7 +88,7 @@ namespace GEDSoftware.API.Controllers
         public IActionResult Delete(int id)
         {
             using var connection = GetConnection();
-            var sql = @"DELETE FROM dbo.proyectos WHERE id = @Id";
+            var sql = @"DELETE FROM dbo.proyectos WHERE Id = @Id";
             var affectedRows = connection.Execute(sql, new { Id = id });
             if(affectedRows > 0)
                 return Ok();

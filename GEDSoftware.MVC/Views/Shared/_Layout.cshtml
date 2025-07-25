@@ -12,35 +12,55 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GEDSoftware.MVC</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GEDSoftware</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#miModal">
+                            Gestionar Proyectos
+                        </button>
+                        <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#modalSesion">
+                            Iniciar Sesion
+                        </button>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - GEDSoftware.MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="miModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gestion de Proyectos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Desarrolladores" asp-action="Index">
+                        <i class="bi bi-person-badge"></i> Desarrolladores
+                    </a>
+                    <a class="btn btn-success btn-lg" asp-area="" asp-controller="Proyectos" asp-action="Index">
+                        <i class="bi bi-kanban"></i> Proyectos
+                    </a>
+                    <a class="btn btn-warning btn-lg" asp-area="" asp-controller="Tareas" asp-action="Index">
+                        <i class="bi bi-list-task"></i> Tareas
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

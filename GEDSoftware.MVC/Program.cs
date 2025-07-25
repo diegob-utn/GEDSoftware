@@ -1,3 +1,5 @@
+using GEDSoftware.Consumer;
+using GEDSoftware.Models.Models;
 using GEDSoftware.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,10 @@ namespace GEDSoftware.MVC
     {
         public static void Main(string[] args)
         {
+            Crud<Desarrollador>.EndPoint = "https://localhost:7169/api/Desarrolladores";
+            Crud<Proyecto>.EndPoint = "https://localhost:7169/api/Proyectos";
+            Crud<Tarea>.EndPoint = "https://localhost:7169/api/Tareas";
+
             var builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");

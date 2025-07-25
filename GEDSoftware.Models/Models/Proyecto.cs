@@ -9,14 +9,14 @@ namespace GEDSoftware.Models.Models
     public class Proyecto
     {
         public int Id { get; set; }
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
-        public DateTime fechacreacion { get; set; }
-        public DateTime fechalimite { get; set; }
-        public string prioridad { get; set; }
-        public string estado { get; set; }
-        public int desarrolladorId { get; set; }
-        public List<Desarrollador>? desarrolladores { get; set; } // Navigation property to Desarrollador
-        public List<Tarea>? tareas { get; set; } // Navigation property to Tareas
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaLimite { get; set; }
+        public string Prioridad { get; set; }
+        public string Estado { get; set; }
+        public int DesarrolladorId { get; set; }
+        public List<Desarrollador>? Desarrolladores { get; set; }
+        public List<Tarea>? Tareas { get; set; }
     }
 }
