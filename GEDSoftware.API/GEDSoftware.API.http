@@ -1,0 +1,6 @@
+@GEDSoftware.API_HostAddress = http://localhost:5294
+
+GET {{GEDSoftware.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
