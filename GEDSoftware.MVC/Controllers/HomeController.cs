@@ -1,10 +1,10 @@
-using System.Diagnostics;
 using GEDSoftware.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace GEDSoftware.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController:Controller
     {
         private readonly ILogger<HomeController> _logger;
 
